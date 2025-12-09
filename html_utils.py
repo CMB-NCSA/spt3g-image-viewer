@@ -12,7 +12,7 @@ def cutout_row(images, source_name, mode="native", row_style=None):
     default_row_style = {
         "display": "flex",
         "gap": "2%",
-        "justifyContent": "center",
+        "justifyContent": "flex-start",
         "marginBottom": "30px"
     }
 
@@ -27,7 +27,7 @@ def cutout_row(images, source_name, mode="native", row_style=None):
 
 
         # Optional overrides
-        width          = img.get("width", "15%")
+        width          = img.get("width", f"{100/len(images)}%")
         fig_style      = img.get("fig_style", {"width": width, "textAlign": "center"})
         img_style      = img.get("img_style", {"width": "100%"})
         caption_style  = img.get("caption_style", {"fontSize": "25px"})

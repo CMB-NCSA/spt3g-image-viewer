@@ -92,7 +92,7 @@ app.layout = html.Div([
     dcc.Location(id="url", refresh=False),
     dcc.Store(id="theme-store", storage_type="local"),
     dcc.Store(id="theme-clicks", data=0),
-    dcc.Store(id="res-mode-store", data="convolved", storage_type="session"),
+    dcc.Store(id="res-mode-store", data="native", storage_type="session"),
     dcc.Store(id="filtered-data-store", data=[], storage_type="session"),
     dcc.Store(id="sorted-table-data", data=[], storage_type="session"),
     html.Div(id="cutout-placeholder", children=[]),

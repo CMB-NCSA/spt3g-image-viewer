@@ -11,9 +11,10 @@ from config import FILE_PREFIX, MAP_FITS, MAP_PNG, TABLE_COLUMNS, COLOR_OPTIONS,
 # === Notes ===
 notes = json.load(open(NOTES_FILE)) if os.path.exists(NOTES_FILE) else {}
 
-header_text = 'This table contains a list of all 1110 SMGs located within the 100 sq. deg. SSDF field. Click on a ' \
-              'source to view thumbnails and SED fits. The table can be ordered by any column simply by clicking on ' \
-              'the column header.'
+header_text = 'This table contains a list of all SMG sources located within the 100 sq. deg. SSDF field. Click on a ' \
+              'row in the table to view SPT3G, SPIRE and MeerKAT thumbnails and MBB fits for that source. ' \
+              'Alternatively, you can click on the source in the SPIRE map on the right. The table can be ' \
+              'filtered using the sliders below, or you can search for a source by name.'
 
 
 # === Home Page Layout ===
@@ -35,7 +36,18 @@ def home_layout(theme="dark"):
     return html.Div([
         # Headers
         html.H1("SPT3G Source Catalog", style={"textAlign": "center", "marginTop": "20px", "marginBottom": "20px"}),
-        html.H3(header_text, style={"textAlign": "center", "marginTop": "20px", "marginBottom": "20px"}),
+        html.H3(
+            header_text,
+            style={
+                "textAlign": "center",
+                "marginTop": "20px",
+                "marginBottom": "20px",
+                "width": "50%",
+                "marginLeft": "auto",
+                "marginRight": "auto",
+                "line-height": "1.4"
+            }
+        ),
 
         # Search bar
         html.Div([
@@ -79,10 +91,10 @@ def home_layout(theme="dark"):
                 dcc.RangeSlider(
                     id="s220-slider",
                     min=1.0,
-                    max=8.0,
+                    max=26.0,
                     step=0.05,
-                    value=[1.0, 8.0],
-                    marks={i: str(i) for i in range(0, 9)},
+                    value=[1.0, 26.0],
+                    marks={i: str(i) for i in range(0, 27) if i % 3 == 0},
                     tooltip={"placement": "bottom", "always_visible": False},
                     allowCross=False
                 )
@@ -92,10 +104,10 @@ def home_layout(theme="dark"):
                 dcc.RangeSlider(
                     id="s150-slider",
                     min=0.0,
-                    max=3.0,
+                    max=6.0,
                     step=0.05,
-                    value=[0.0, 3.0],
-                    marks={i: str(i) for i in range(0, 9)},
+                    value=[0.0, 6.0],
+                    marks={i: str(i) for i in range(0, 7)},
                     tooltip={"placement": "bottom", "always_visible": False},
                     allowCross=False
                 )
@@ -106,10 +118,10 @@ def home_layout(theme="dark"):
                 html.Label("Filter by alpha90:"),
                 dcc.RangeSlider(
                     id="a90-slider",
-                    min=1.0,
-                    max=4.5,
+                    min=0.0,
+                    max=5.0,
                     step=0.05,
-                    value=[1.0, 4.5],
+                    value=[0.0, 5.0],
                     marks={i: str(i) for i in range(0, 9)},
                     tooltip={"placement": "bottom", "always_visible": False},
                     allowCross=False
@@ -119,10 +131,10 @@ def home_layout(theme="dark"):
                 html.Label("Filter by alpha220:"),
                 dcc.RangeSlider(
                     id="a220-slider",
-                    min=0.5,
-                    max=3.0,
+                    min=0.0,
+                    max=5.0,
                     step=0.05,
-                    value=[0.5, 3.0],
+                    value=[0.0, 5.0],
                     marks={i: str(i) for i in range(0, 9)},
                     tooltip={"placement": "bottom", "always_visible": False},
                     allowCross=False
@@ -162,7 +174,7 @@ def home_layout(theme="dark"):
                     sort_mode='single',
                     row_selectable='single'
                 ),
-            style={"width": "80%", "paddingRight": "2%"}
+                style={"width": "80%", "paddingRight": "2%"}
             ),
 
             # Right column: Map
@@ -259,7 +271,8 @@ def viewer_layout(source_name):
                 "backgroundColor": "rgba(0, 123, 255, 0.1)",
                 "borderRadius": "10px",
                 "border": "2px solid #007bff",
-                "marginRight": "2%"
+                "marginRight": "2%",
+                "height": "350px"
             }),
 
             # Cutouts on the right
@@ -274,9 +287,9 @@ def viewer_layout(source_name):
                     {"prefix": "corner", "mode": ".", "folder": "corner_plots", "suffix": "corner",
                      "title": "Corner Plot"}
                 ], source_name),
-                style={"width": "78%"}
+                style={"width": "100%"}
             )
-        ], style={"display": "flex", "justifyContent": "space-between", "marginBottom": "30px"}),
+        ], style={"display": "flex", "justifyContent": "flex-start", "marginBottom": "30px", "width": "100%"}),
 
         dcc.Textarea(
             id="notes-text",

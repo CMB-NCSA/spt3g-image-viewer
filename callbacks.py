@@ -296,7 +296,6 @@ def register_callbacks(app, notes):
         prevent_initial_call=True
     )
     def store_res_mode(value):
-        print(f"Resolution mode changed to: {value}")
         return value
 
     # Clientside callback to update image sources
