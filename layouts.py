@@ -11,7 +11,7 @@ from config import FILE_PREFIX, MAP_FITS, MAP_PNG, TABLE_COLUMNS, COLOR_OPTIONS,
 # === Notes ===
 notes = json.load(open(NOTES_FILE)) if os.path.exists(NOTES_FILE) else {}
 
-header_text = 'This table contains a list of all SMG sources located within the 100 sq. deg. SSDF field. Click on a ' \
+header_text = 'This table contains a list of all SPT3G SMGs in the 100 sq. deg. SSDF field. Click on a ' \
               'row in the table to view SPT3G, SPIRE and MeerKAT thumbnails and MBB fits for that source. ' \
               'Alternatively, you can click on the source in the SPIRE map on the right. The table can be ' \
               'filtered using the sliders below, or you can search for a source by name.'

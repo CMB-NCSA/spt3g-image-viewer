@@ -1,5 +1,3 @@
-# interactive_map.py
-
 from dash import html, dcc
 from dash import Output, Input, callback, callback_context
 import dash
@@ -54,7 +52,7 @@ def create_map_figure(catalog_path=None,
             xref="x",
             yref="y",
             x=0,
-            y=png_height,  # y=height at top
+            y=png_height,
             sizex=png_width,
             sizey=png_height,
             sizing="stretch",
@@ -74,7 +72,7 @@ def create_map_figure(catalog_path=None,
             range=[0, png_height],
             scaleanchor="x"
         ),
-        clickmode='event+select'  # 👈 This is important
+        clickmode='event+select'
     )
 
     # Flip y for correct overlay
@@ -98,7 +96,7 @@ def create_map_figure(catalog_path=None,
         ),
         text=catalog_df["source_name"],
         hoverinfo="text",
-        customdata=catalog_df["source_name"]  # 💡 send this to clickData
+        customdata=catalog_df["source_name"]  # send this to clickData
     ))
 
     return fig

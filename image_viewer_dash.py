@@ -1,4 +1,3 @@
-import os
 import dash
 from dash import dcc, html, Input, Output, State, dash_table
 from dash.dependencies import ALL
@@ -11,21 +10,18 @@ from data_loader import (
     load_combined_catalog,
     get_table_styles
 )
-from interactive_map import create_map_figure
-from html_utils import theme_toggle_button
 from config import (
-    NOTES_FILE, MAP_FITS, MAP_PNG, COLOR_OPTIONS,
-    TABLE_COLUMNS, USERS, SECRET_KEY, IS_LOCAL,
+    USERS, SECRET_KEY,
     FILE_PREFIX
 )
 from layouts import home_layout, viewer_layout, notes
 from callbacks import register_callbacks
 
 # === Flask + Flask-Login imports ===
-from flask import Flask, redirect, url_for, request, abort, render_template_string
+from flask import Flask, redirect, url_for, request, render_template_string
 from flask_login import (
     LoginManager, UserMixin, login_user,
-    login_required, logout_user, current_user
+    login_required, logout_user
 )
 
 # -----------------------------------------------------------------------------
@@ -37,16 +33,9 @@ server.secret_key = SECRET_KEY
 login_manager = LoginManager()
 login_manager.init_app(server)
 
-
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
-
-@server.before_request
-def block_direct_access():
-    if not IS_LOCAL:
-        if request.headers.get("X-Forwarded-By") != "CloudFront":
-            abort(403)
 
 
 @login_manager.user_loader
@@ -134,7 +123,7 @@ for view_func in list(app.server.view_functions):
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     server.run(
-        debug=IS_LOCAL,
-        host="127.0.0.1" if IS_LOCAL else "0.0.0.0",
+        debug=False,
+        host="127.0.0.1",
         port=8050
     )
