@@ -2,7 +2,6 @@ __pycache__/
 .idea/
 assets/
 config.py
-login_template.html
 notes.json
 spire_meerkat_dropouts_mbb_fit_params.csv
 update_working_version.sh

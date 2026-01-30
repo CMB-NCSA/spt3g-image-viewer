@@ -12,7 +12,10 @@ from data_loader import (
 )
 from config import (
     USERS, SECRET_KEY,
-    FILE_PREFIX
+    FILE_PREFIX,
+    DEBUG_ENABLED,
+    SERVER_HOST,
+    SERVER_PORT,
 )
 from layouts import home_layout, viewer_layout, notes
 from callbacks import register_callbacks
@@ -123,7 +126,7 @@ for view_func in list(app.server.view_functions):
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     server.run(
-        debug=False,
-        host="127.0.0.1",
-        port=8050
+        debug=DEBUG_ENABLED,
+        host=SERVER_HOST,
+        port=SERVER_PORT
     )

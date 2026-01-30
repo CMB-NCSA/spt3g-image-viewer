@@ -1,0 +1,15 @@
+name: spt3g-image-viewer
+
+services:
+  app:
+    image: spt3g-source-catalog:latest
+    build:
+      context: ../src/
+      dockerfile: ../container/Dockerfile
+    command: python image_viewer_dash.py
+    ports:
+      - 127.0.0.1:8000:8000
+    volumes:
+      - ../assets:/app/assets:ro
+      - ../config.py:/app/config.py:ro
+      - ../notes.json:/app/notes.json

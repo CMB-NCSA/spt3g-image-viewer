@@ -1,0 +1,34 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.montserrat-bold {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.montserrat-regular {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+</style>
+
+<div class="container-fluid d-flex justify-content-center align-items-center"
+     style="height: 100vh; background: linear-gradient(45deg, #121212, #1e1e1e); color: #E0E0E0;">
+    <div class="card p-4"
+         style="min-width: 500px; background: linear-gradient(45deg, #121212, #1e1e1e); color: #E0E0E0;">
+        <h3 class="text-center mb-4 montserrat-regular">Login</h3>
+        <form method="post">
+            <div class="mb-3">
+                <input type="text" name="username" placeholder="Username" class="form-control montserrat-regular">
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" placeholder="Password" class="form-control montserrat-regular">
+            </div>
+            <button type="submit" class="btn btn-primary w-100 montserrat-regular">Sign In</button>
+        </form>
+    </div>
+</div>
