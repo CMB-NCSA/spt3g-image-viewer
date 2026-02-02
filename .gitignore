@@ -1,10 +1,10 @@
 __pycache__/
 .idea/
 assets/
-config.py
 notes.json
 spire_meerkat_dropouts_mbb_fit_params.csv
 update_working_version.sh
 image_viewer_dash_backup.py
 ideas.md
 changes.txt
+.env

@@ -16,6 +16,7 @@ from config import (
     DEBUG_ENABLED,
     SERVER_HOST,
     SERVER_PORT,
+    URL_BASE_PATHNAME,
 )
 from layouts import home_layout, viewer_layout, notes
 from callbacks import register_callbacks
@@ -26,6 +27,7 @@ from flask_login import (
     LoginManager, UserMixin, login_user,
     login_required, logout_user
 )
+url_basepath = URL_BASE_PATHNAME.strip('/')
 
 # -----------------------------------------------------------------------------
 # Flask + Login setup
@@ -77,7 +79,8 @@ def logout():
 
 # === App Initialization ===
 app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.SANDSTONE],
-                assets_folder=FILE_PREFIX + "assets", suppress_callback_exceptions=True)
+                assets_folder=FILE_PREFIX + "assets", suppress_callback_exceptions=True,
+                url_base_pathname=URL_BASE_PATHNAME)
 
 # === App Layout ===
 app.layout = html.Div([
@@ -102,12 +105,12 @@ register_callbacks(app, notes)
 )
 def display_page(pathname, stored_theme):
     theme = stored_theme or "dark"
-    if pathname in ["/", "/home"]:
+    if pathname in [f"{url_basepath}/", f"{url_basepath}/home"]:
         return home_layout(theme)
-    elif pathname.startswith("/viewer/"):
-        source_name = unquote(pathname.split("/viewer/")[1])
+    elif pathname.startswith(f"{url_basepath}/viewer/"):
+        source_name = unquote(pathname.split(f"{url_basepath}/viewer/")[1])
         return viewer_layout(source_name)
-    elif pathname == "/logout":
+    elif pathname == f"{url_basepath}/logout":
         return login()
     return html.Div("404 Page Not Found")
 

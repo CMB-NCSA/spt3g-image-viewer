@@ -2,14 +2,14 @@ name: spt3g-image-viewer
 
 services:
   app:
-    image: spt3g-source-catalog:latest
+    image: registry.gitlab.com/spt3g/kubernetes/spt3g-image-viewer:latest
     build:
       context: ../src/
       dockerfile: ../container/Dockerfile
+    env_file: ../container/.env
     command: python image_viewer_dash.py
     ports:
-      - 127.0.0.1:8000:8000
+      - 127.0.0.1:8000:${SPT3G_VIEWER_SERVER_PORT:-8000}
     volumes:
       - ../assets:/app/assets:ro
-      - ../config.py:/app/config.py:ro
       - ../notes.json:/app/notes.json
